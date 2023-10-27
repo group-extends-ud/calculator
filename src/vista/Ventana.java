@@ -28,7 +28,7 @@ public class Ventana extends JFrame {
             }
         };
         pKeyboard.setBackground(new Color(56, 56, 56));
-        pKeyboard.setBounds(0, 212, 1280, 508);
+        pKeyboard.setBounds(0, 250, 1280, 470);
         add(pKeyboard);
 
         for (int j = 0; j < 4; j++) {
