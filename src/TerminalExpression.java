@@ -1,5 +1,5 @@
 public class TerminalExpression implements Expression {
-  private String var;
+  private final String var;
   public TerminalExpression(String v) {
     var = v;
   }

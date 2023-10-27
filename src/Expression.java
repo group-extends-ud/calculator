@@ -1,3 +1,3 @@
 public interface Expression {
-  public int evaluate(Context c);
+  int evaluate(Context c);
 }

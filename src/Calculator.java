@@ -1,9 +1,8 @@
-import java.io.*;
-import java.util.*;
+import java.util.HashMap;
 
 public class Calculator {
   private String expression;
-  private HashMap operators;
+  private final HashMap operators;
   private Context ctx;
 
   public static void main(String[] args) {
@@ -77,7 +76,7 @@ public class Calculator {
     for (int i = 0; i < expr.length(); i++) {
       String currChar = expr.substring(i, i + 1);
 
-      if (isOperator(currChar) == false) {
+      if (!isOperator(currChar)) {
         Expression e = new TerminalExpression(currChar);
         s.push(e);
       } else {
@@ -100,7 +99,7 @@ public class Calculator {
 
       String currChar = str.substring(i, i + 1);
 
-      if ((isOperator(currChar) == false) &&
+      if ((!isOperator(currChar)) &&
           (!currChar.equals("(")) &&
           (!currChar.equals(")"))) {
         pfExpr = pfExpr + currChar;
@@ -120,21 +119,21 @@ public class Calculator {
       // if the current character is an
       // operator
       if (isOperator(currChar)) {
-        if (s.isEmpty() == false) {
+        if (!s.isEmpty()) {
           tempStr = (String) s.pop();
           String strVal1 = (String) operators.get(tempStr);
-          int val1 = new Integer(strVal1).intValue();
+          int val1 = Integer.parseInt(strVal1);
           String strVal2 = (String) operators.get(currChar);
-          int val2 = new Integer(strVal2).intValue();
+          int val2 = Integer.parseInt(strVal2);
 
           while ((val1 >= val2)) {
             pfExpr = pfExpr + tempStr;
             val1 = -100;
-            if (s.isEmpty() == false) {
+            if (!s.isEmpty()) {
               tempStr = (String) s.pop();
               strVal1 = (String) operators.get(
                   tempStr);
-              val1 = new Integer(strVal1).intValue();
+              val1 = Integer.parseInt(strVal1);
 
             }
           }
@@ -145,7 +144,7 @@ public class Calculator {
       } // if
 
     } // for
-    while (s.isEmpty() == false) {
+    while (!s.isEmpty()) {
       tempStr = (String) s.pop();
       pfExpr = pfExpr + tempStr;
     }
@@ -153,18 +152,16 @@ public class Calculator {
   }
 
   private boolean isOperator(String str) {
-    if ((str.equals("+")) || (str.equals("-")) ||
-        (str.equals("*")) || (str.equals("/")))
-      return true;
-    return false;
+      return (str.equals("+")) || (str.equals("-")) ||
+              (str.equals("*")) || (str.equals("/"));
   }
 } // End of class
 
 class Context {
-  private HashMap varList = new HashMap();
+  private final HashMap varList = new HashMap();
 
   public void assign(String var, int value) {
-    varList.put(var, new Integer(value));
+    varList.put(var, Integer.valueOf(value));
   }
 
   public int getValue(String var) {

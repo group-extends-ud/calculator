@@ -19,11 +19,7 @@ public class Stack {
     }
   }
   public boolean isEmpty() {
-    if (stackEntries.size() == 0) {
-      return true;
-    } else {
-      return false;
-    }
+      return stackEntries.size() == 0;
   }
 
   public void reverse() {
