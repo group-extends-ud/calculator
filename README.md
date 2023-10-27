@@ -4,4 +4,5 @@ A scientific calculator developed using the interpreter design ideas from Kuchan
 ### Credits
 This software was developed by
 - Jean Carlos Santoya Cabrera
-- Sergio Bohada
+- Sergio David Bohada Vargas
+
