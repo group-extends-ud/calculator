@@ -9,14 +9,17 @@ import javax.swing.border.Border;
 
 public class Ventana extends JFrame {
     private final GUIService g;
-    private final JLabel lExpression;
+    private final JTextField lExpression;
 
     public Ventana() {
         g = GUIService.getService();
 
-        lExpression = new JLabel();
+        lExpression = new JTextField();
         lExpression.setBounds(32, 32, 1200, 32);
         lExpression.setForeground(Color.WHITE);
+        lExpression.setBackground(null);
+        lExpression.setCaretColor(Color.WHITE);
+        lExpression.setBorder(null);
         lExpression.setFont(new Font("Arial", Font.PLAIN, 20));
         add(lExpression);
 
@@ -26,10 +29,10 @@ public class Ventana extends JFrame {
 
     private void loadKeyboard() {
         String[][] names = new String[][] {
-            {"SHIFT", "MODE", "DRG", "LN", "7", "8", "9", "DEL", "AC"},
-            {"MR", "MS", "M+", "X^2", "4", "5", "6", "X", "/"},
-            {"HYP", "SIN", "COS", "TAN", "1", "2", "3", "+", "="},
-            {"(",")", "X^-1", "sqrt", "0", ".", "+-", "-", "="}
+            {"Left", "Right", "!", "e", "7", "8", "9", "DEL", "AC"},
+            {"Ans", "abs", "X^2", "Y^X", "4", "5", "6", "X", "/"},
+            {"π", "sin", "cos", "tan", "1", "2", "3", "+", "%"},
+            {"(",")", "nPr", "nCr", "0", ".", "//", "-", "="}
         };
 
         JPanel pKeyboard = new JPanel(null);
@@ -37,6 +40,8 @@ public class Ventana extends JFrame {
         pKeyboard.setBackground(new Color(56, 56, 56));
         pKeyboard.setBounds(2, 250, 1276, 468);
         add(pKeyboard);
+
+        ButtonHandler buttonHandler = new ButtonHandler(this);
 
         for (int j = 0; j < 4; j++) {
             for (int i = 0; i < 9; i++) {
@@ -48,8 +53,8 @@ public class Ventana extends JFrame {
                     bg = new Color(107, 107, 107);
                 }
                 JButton b1 = new Boton(names[j][i], 100 + i * 120, 30 + j * 110, bg);
-                b1.setActionCommand(i+","+j);
-                b1.addActionListener(new ButtonHandler());
+                b1.setActionCommand(j+","+i);
+                b1.addActionListener(buttonHandler);
                 pKeyboard.add(b1);
             }
         }
@@ -64,7 +69,39 @@ public class Ventana extends JFrame {
         setLayout(null);
         setVisible(true);
     }
-    
+
+    public void insert(String str) {
+        int cPos = lExpression.getCaretPosition();
+        String text = lExpression.getText();
+
+        String newText = text.substring(0, cPos) + str + text.substring(cPos);
+
+        lExpression.setText(newText);
+        lExpression.setCaretPosition(cPos+str.length());
+    }
+
+    public void del() {
+        if(!lExpression.getText().isEmpty()) {
+            String newExpression = lExpression.getText();
+            lExpression.setText(newExpression.substring(0, newExpression.length()-1));
+        }
+    }
+
+    public void ac() {
+        lExpression.setText("");
+    }
+
+    public void left() {
+        if(lExpression.getCaretPosition()>0) {
+            lExpression.setCaretPosition(lExpression.getCaretPosition() - 1);
+        }
+    }
+
+    public void right() {
+        if(lExpression.getCaretPosition()<lExpression.getText().length()) {
+            lExpression.setCaretPosition(lExpression.getCaretPosition() + 1);
+        }
+    }
 }
 
 class Test {
