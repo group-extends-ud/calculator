@@ -1,6 +1,6 @@
 package vista;
 
-import service.GraphicService;
+import control.Control;
 import service.ResourceService;
 
 import java.awt.*;
@@ -9,20 +9,38 @@ import javax.swing.*;
 
 public class Ventana extends JFrame {
     private static final ResourceService rs = ResourceService.getInstance();
+    private final Control control;
     private final JTextField lExpression;
+    private final JLabel lAnswer;
+    private final ButtonHandler buttonHandler;
 
-    public Ventana() {
+    public Ventana(Control c) {
+        control = c;
         lExpression = new JTextField();
-        lExpression.setBounds(32, 32, 1200, 32);
+        lAnswer = new JLabel();
+        buttonHandler = new ButtonHandler(this);
+        
+        loadTextFields();
+        loadKeyboard();
+        loadProperties();
+    }
+
+    private void loadTextFields() {
+        lExpression.setBounds(32, 72, 1200, 32);
         lExpression.setForeground(Color.WHITE);
         lExpression.setBackground(null);
         lExpression.setCaretColor(Color.WHITE);
         lExpression.setBorder(null);
-        lExpression.setFont(new Font("Arial", Font.PLAIN, 20));
+        lExpression.setFont(rs.fText1);
+        lExpression.setActionCommand("3,8");
+        lExpression.addActionListener(buttonHandler);
         add(lExpression);
 
-        loadKeyboard();
-        loadProperties();
+        lAnswer.setBounds(32, 146, 1200, 32);
+        lAnswer.setForeground(Color.CYAN);
+        lAnswer.setFont(rs.fText1);
+        lAnswer.setHorizontalAlignment(JLabel.RIGHT);
+        add(lAnswer);
     }
 
     private void loadKeyboard() {
@@ -45,8 +63,6 @@ public class Ventana extends JFrame {
         pKeyboard.setBackground(new Color(56, 56, 56));
         pKeyboard.setBounds(2, 250, 1276, 468);
         add(pKeyboard);
-
-        ButtonHandler buttonHandler = new ButtonHandler(this);
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 9; j++) {
@@ -100,10 +116,16 @@ public class Ventana extends JFrame {
             lExpression.setCaretPosition(lExpression.getCaretPosition() + 1);
         }
     }
-}
 
-class Test {
-    public static void main(String[] args) {
-        new Ventana();
+    public void calcular() {
+        control.calcular();
+    }
+
+    public void showAnswer(String answer) {
+        lAnswer.setText(answer);
+    }
+
+    public String getExpression() {
+        return lExpression.getText();
     }
 }

@@ -13,7 +13,7 @@ public class ResourceService {
     /**
      *  COLOR PALETTES
      **/
-    // Scientific Calculator
+    // Scientific model.Calculator
     public final Color SCB = new Color(5, 68, 99); // Blue
     public final Color SCR = new Color(102, 19, 13); // Red
     public final Color SCY = new Color(168, 133, 31); // Yellow
@@ -26,6 +26,7 @@ public class ResourceService {
      **/
     // Windows 10
     public final Font fText = new Font("Consolas", Font.PLAIN, 26);
+    public final Font fText1 = new Font("Arial", Font.PLAIN, 20);
 
     /**
      * Borders
