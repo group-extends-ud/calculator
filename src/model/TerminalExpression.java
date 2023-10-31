@@ -1,11 +1,11 @@
 package model;
 
 public class TerminalExpression implements Expression {
-  private final String var;
-  public TerminalExpression(String v) {
+  private final Object var;
+  public TerminalExpression(Object v) {
     var = v;
   }
   public double evaluate(Context c) {
-    return c.getValue(var);
+    return (Double) var;
   }
 }

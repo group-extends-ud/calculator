@@ -30,13 +30,9 @@ public class Calculator {
   public double evaluate() {
     // infix to Postfix
     Stack pfExpr = infixToPostFix(expression);
-    Stack test = new Stack();
-    while (!pfExpr.isEmpty()) {
-      test.push(pfExpr.pop());
-    }
 
     // build the Binary Tree
-    Expression rootNode = buildTree(test);
+    Expression rootNode = buildTree(pfExpr);
 
     // Evaluate the tree
     return rootNode.evaluate(ctx);
@@ -60,16 +56,16 @@ public class Calculator {
     Stack s = new Stack();
 
     while (!expr.isEmpty()) {
-      Object currChar = expr.pop();
+      Object currObj = expr.pop();
 
-      if (!isOperator((String) currChar)) {
-        Expression e = new TerminalExpression((String) currChar);
+      if (!isOperator(currObj)) {
+        Expression e = new TerminalExpression(currObj);
         s.push(e);
       }
       else {
         Expression r = (Expression) s.pop();
         Expression l = (Expression) s.pop();
-        Expression n = getNonTerminalExpression((String) currChar, l, r);
+        Expression n = getNonTerminalExpression((String) currObj, l, r);
         s.push(n);
       }
     } // for
@@ -81,7 +77,6 @@ public class Calculator {
     Stack pfExpr = new Stack();
 
     String tempStr = "";
-
     String expr = str.trim();
 
     // recorre cada char en str
@@ -140,6 +135,7 @@ public class Calculator {
 
               String strVal2 = (String) operators.get(currChar);
               int val2 = Integer.parseInt(strVal2);
+
               // 8biB
               while (val1 >= val2) {
                 pfExpr.push(tempStr);
@@ -150,8 +146,9 @@ public class Calculator {
                   val1 = Integer.parseInt(strVal1);
                 }
               }
-              if (val1 < val2 && val1 != -100)
+              if (val1 < val2 && val1 != -100) {
                 stack.push(tempStr);
+              }
             }
             stack.push(currChar);
           }
@@ -161,11 +158,26 @@ public class Calculator {
     while (!stack.isEmpty()) {
       pfExpr.push(stack.pop());
     }
-    return pfExpr;
+
+    // se invierte el orden para facilitar el recorrido
+    Stack postFix = new Stack();
+    while(!pfExpr.isEmpty()) {
+      postFix.push(pfExpr.pop());
+    }
+    return postFix;
   }
 
   private boolean isOperator(String str) {
       return str.equals("+") || str.equals("-") || str.equals("*") || str.equals("/");
+  }
+
+  private boolean isOperator(Object obj) {
+    try {
+      return isOperator((String) obj);
+    }
+    catch (Exception e) {
+      return false;
+    }
   }
 
 }
