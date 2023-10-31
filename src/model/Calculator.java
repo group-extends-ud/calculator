@@ -37,7 +37,6 @@ public class Calculator {
     // Evaluate the tree
     return rootNode.evaluate(ctx);
   }
-
   private NonTerminalExpression getNonTerminalExpression(String operation, Expression l, Expression r) {
     if (operation.trim().equals("+")) {
       return new AddExpression(l, r);
@@ -88,7 +87,7 @@ public class Calculator {
         double valor = 0.0;
         int maxSize = 0;
         // toma el double más largo desde esa posición
-        for (int j = i; j <expr.length(); j++) {
+        for (int j = i; j < expr.length()+1; j++) {
           if(isDouble(expr.substring(i,j))) {
             valor = Double.parseDouble(expr.substring(i,j));
             maxSize = j-i;
