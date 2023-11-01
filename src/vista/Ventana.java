@@ -1,38 +1,61 @@
 package vista;
 
-import service.GUIService;
+import control.Control;
+import service.ResourceService;
 
 import java.awt.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class Ventana extends JFrame {
-    private final GUIService g;
+    private static final ResourceService rs = ResourceService.getInstance();
+    private final Control control;
     private final JTextField lExpression;
+    private final JLabel lAnswer;
+    private final ButtonHandler buttonHandler;
 
-    public Ventana() {
-        g = GUIService.getService();
-
+    public Ventana(Control c) {
+        control = c;
         lExpression = new JTextField();
-        lExpression.setBounds(32, 32, 1200, 32);
-        lExpression.setForeground(Color.WHITE);
-        lExpression.setBackground(null);
-        lExpression.setCaretColor(Color.WHITE);
-        lExpression.setBorder(null);
-        lExpression.setFont(new Font("Arial", Font.PLAIN, 20));
-        add(lExpression);
-
+        lAnswer = new JLabel();
+        buttonHandler = new ButtonHandler(this);
+        
+        loadTextFields();
         loadKeyboard();
         loadProperties();
     }
 
+    private void loadTextFields() {
+        lExpression.setBounds(32, 72, 1200, 32);
+        lExpression.setForeground(Color.WHITE);
+        lExpression.setBackground(null);
+        lExpression.setCaretColor(Color.WHITE);
+        lExpression.setBorder(null);
+        lExpression.setFont(rs.fText1);
+        lExpression.setActionCommand("3,8");
+        lExpression.addActionListener(buttonHandler);
+        add(lExpression);
+
+        lAnswer.setBounds(32, 146, 1200, 32);
+        lAnswer.setForeground(Color.CYAN);
+        lAnswer.setFont(rs.fText1);
+        lAnswer.setHorizontalAlignment(JLabel.RIGHT);
+        add(lAnswer);
+    }
+
     private void loadKeyboard() {
         String[][] names = new String[][] {
-            {"Left", "Right", "!", "e", "7", "8", "9", "DEL", "AC"},
-            {"Ans", "abs", "X^2", "Y^X", "4", "5", "6", "X", "/"},
-            {"π", "sin", "cos", "tan", "1", "2", "3", "+", "%"},
-            {"(",")", "nPr", "nCr", "0", ".", "//", "-", "="}
+            {"Left", "Right",   "!",   "e", "7", "8",  "9", "DEL", "AC"},
+            { "Ans",   "abs", "X^2", "Y^X", "4", "5",  "6",   "X",  "/"},
+            {   "π",   "sin", "cos", "tan", "1", "2",  "3",   "+",  "%"},
+            {   "(",     ")", "nPr", "nCr", "0", ".", "//",   "-",  "="}
+        };
+
+        Color[][] colors = new Color[][] {
+            { rs.SCY,  rs.SCY, rs.SCG3, rs.SCG3, rs.SCG1, rs.SCG1, rs.SCG1, rs.SCR, rs.SCR},
+            {rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG1, rs.SCG1, rs.SCG1, rs.SCB, rs.SCB},
+            {rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG1, rs.SCG1, rs.SCG1, rs.SCB, rs.SCB},
+            {rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG1, rs.SCG1,  rs.SCB, rs.SCB, rs.SCB}
         };
 
         JPanel pKeyboard = new JPanel(null);
@@ -41,19 +64,10 @@ public class Ventana extends JFrame {
         pKeyboard.setBounds(2, 250, 1276, 468);
         add(pKeyboard);
 
-        ButtonHandler buttonHandler = new ButtonHandler(this);
-
-        for (int j = 0; j < 4; j++) {
-            for (int i = 0; i < 9; i++) {
-                Color bg;
-                if(i<4) {
-                    bg = new Color(34, 34, 34);
-                }
-                else {
-                    bg = new Color(107, 107, 107);
-                }
-                JButton b1 = new Boton(names[j][i], 100 + i * 120, 30 + j * 110, bg);
-                b1.setActionCommand(j+","+i);
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 9; j++) {
+                JButton b1 = new Boton(names[i][j], 100 + j * 120, 30 + i * 110, colors[i][j]);
+                b1.setActionCommand(i+","+j);
                 b1.addActionListener(buttonHandler);
                 pKeyboard.add(b1);
             }
@@ -102,10 +116,16 @@ public class Ventana extends JFrame {
             lExpression.setCaretPosition(lExpression.getCaretPosition() + 1);
         }
     }
-}
 
-class Test {
-    public static void main(String[] args) {
-        new Ventana();
+    public void calcular() {
+        control.calcular();
+    }
+
+    public void showAnswer(String answer) {
+        lAnswer.setText(answer);
+    }
+
+    public String getExpression() {
+        return lExpression.getText();
     }
 }

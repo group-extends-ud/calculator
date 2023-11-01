@@ -1,6 +1,5 @@
 package vista;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -64,6 +63,9 @@ public class ButtonHandler implements ActionListener {
 
             // historial
             case "1,0" -> ventana.insert("Ans");
+
+            // calcular
+            case "3,8" -> ventana.calcular();
 
             // pending
             default -> System.out.println(coordenadas);

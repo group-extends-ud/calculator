@@ -7,13 +7,14 @@ import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.border.Border;
 
-public class GUIService {
-    private final static GUIService objGUI = new GUIService();
-    public final static Font fText = new Font("Consolas", Font.PLAIN, 26);
+public class GraphicService {
+    private final static GraphicService instance = new GraphicService();
 
-    public final static Border bordeRedondeado = objGUI.getRoundBorder(null, 40, false, null);
+    private GraphicService() {}
 
-    private GUIService() {}
+    public static GraphicService getService() {
+        return instance;
+    }
     
     public Border getRoundBorder(Color color, int radio, boolean esLineal, Image imagen) {
         return new Border() {
@@ -70,18 +71,13 @@ public class GUIService {
     ) {
         if(imagen != null)
             g2.drawImage(
-                imagen, 
-                0, 0, imagen.getWidth(null), imagen.getHeight(null),
-                c.getX(), c.getY(), imagen.getWidth(null) + c.getX(), imagen.getHeight(null) + c.getY(),
-                c
+                imagen,0, 0, imagen.getWidth(null), imagen.getHeight(null),
+                c.getX(), c.getY(), imagen.getWidth(null) + c.getX(),
+            imagen.getHeight(null) + c.getY(), c
             );
         else{
             g2.setColor(padreContenedor.getBackground());
             g2.fillRect(0, 0, ancho, alto);
         }
-    }
-
-    public static GUIService getService() {
-        return objGUI;
     }
 }
