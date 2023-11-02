@@ -1,0 +1,5 @@
+Precedence rules
+^
+* /
++ -
+Expressions are evaluated from left to right

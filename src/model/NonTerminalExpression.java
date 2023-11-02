@@ -1,4 +1,6 @@
-public abstract class NonTerminalExpression 
+package model;
+
+public abstract class NonTerminalExpression
   implements Expression {
   private Expression leftNode;
   private Expression rightNode;
@@ -19,30 +21,30 @@ public abstract class NonTerminalExpression
   public Expression getRightNode() {
     return rightNode;
   }
-}// NonTerminalExpression
+}// model.NonTerminalExpression
 
 class AddExpression extends NonTerminalExpression {
-  public int evaluate(Context c) {
+  public double evaluate(Context c) {
     return getLeftNode().evaluate(c) +
            getRightNode().evaluate(c);
   }
   public AddExpression(Expression l, Expression r) {
     super(l, r);
   }
-}// AddExpression
+}// model.AddExpression
 
 class SubtractExpression extends NonTerminalExpression {
-  public int evaluate(Context c) {
+  public double evaluate(Context c) {
     return getLeftNode().evaluate(c) -
            getRightNode().evaluate(c);
   }
   public SubtractExpression(Expression l, Expression r) {
     super(l, r);
   }
-}// SubtractExpression
+}// model.SubtractExpression
 
 class MultiplyExpression extends NonTerminalExpression {
-  public int evaluate(Context c) {
+  public double evaluate(Context c) {
     return getLeftNode().evaluate(c) *
            getRightNode().evaluate(c);
   }
@@ -50,5 +52,5 @@ class MultiplyExpression extends NonTerminalExpression {
     super(l, r);
   }
 
-}// MultiplyExpression
+}// model.MultiplyExpression
 
