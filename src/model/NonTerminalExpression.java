@@ -72,3 +72,12 @@ class ModExpression extends NonTerminalExpression {
   }
 }
 
+class PowExpression extends NonTerminalExpression {
+  public PowExpression(Expression l, Expression r) {
+    super(l, r);
+  }
+  @Override
+  public double evaluate(Context c) {
+    return Math.pow(getLeftNode().evaluate(c), getRightNode().evaluate(c));
+  }
+}

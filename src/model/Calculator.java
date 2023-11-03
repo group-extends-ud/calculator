@@ -17,6 +17,7 @@ public class Calculator {
     operators.put("/", "2");
     operators.put("*", "2");
     operators.put("%", "3");
+    operators.put("^", "4");
     operators.put("(", "0");
   }
 
@@ -53,6 +54,9 @@ public class Calculator {
     }
     else if (operation.trim().equals("%")) {
       return new ModExpression(l, r);
+    }
+    else if (operation.trim().equals("^")) {
+      return new PowExpression(l, r);
     }
 
     return null;
@@ -174,7 +178,8 @@ public class Calculator {
   }
 
   private boolean isOperator(String str) {
-      return str.equals("+") || str.equals("-") || str.equals("*") || str.equals("/") || str.equals("%");
+      return str.equals("+") || str.equals("-") || str.equals("*") || str.equals("/") || str.equals("%")
+              || str.equals("^");
   }
 
   private boolean isOperator(Object obj) {
