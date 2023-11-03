@@ -62,3 +62,13 @@ class DivideExpression extends NonTerminalExpression {
   }
 }
 
+class ModExpression extends NonTerminalExpression {
+  public ModExpression(Expression l, Expression r) {
+    super(l, r);
+  }
+  @Override
+  public double evaluate(Context c) {
+    return getLeftNode().evaluate(c) % getRightNode().evaluate(c);
+  }
+}
+
