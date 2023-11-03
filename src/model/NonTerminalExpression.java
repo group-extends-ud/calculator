@@ -81,3 +81,15 @@ class PowExpression extends NonTerminalExpression {
     return Math.pow(getLeftNode().evaluate(c), getRightNode().evaluate(c));
   }
 }
+
+class IntDivideExpression extends NonTerminalExpression {
+  public IntDivideExpression(Expression l, Expression r) {
+    super(l, r);
+  }
+  @Override
+  public double evaluate(Context c) {
+    int a = (int) getLeftNode().evaluate(c);
+    int b = (int) getRightNode().evaluate(c);
+    return a / b;
+  }
+}
