@@ -41,11 +41,14 @@ public class Calculator {
     if (operation.trim().equals("+")) {
       return new AddExpression(l, r);
     }
-    if (operation.trim().equals("-")) {
+    else if (operation.trim().equals("-")) {
       return new SubtractExpression(l, r);
     }
-    if (operation.trim().equals("*")) {
+    else if (operation.trim().equals("*")) {
       return new MultiplyExpression(l, r);
+    }
+    else if (operation.trim().equals("/")) {
+      return new DivideExpression(l, r);
     }
 
     return null;

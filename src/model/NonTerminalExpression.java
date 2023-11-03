@@ -45,12 +45,20 @@ class SubtractExpression extends NonTerminalExpression {
 
 class MultiplyExpression extends NonTerminalExpression {
   public double evaluate(Context c) {
-    return getLeftNode().evaluate(c) *
-           getRightNode().evaluate(c);
+    return getLeftNode().evaluate(c) * getRightNode().evaluate(c);
   }
   public MultiplyExpression(Expression l, Expression r) {
     super(l, r);
   }
 
 }// model.MultiplyExpression
+
+class DivideExpression extends NonTerminalExpression {
+  public double evaluate(Context c) {
+    return getLeftNode().evaluate(c) / getRightNode().evaluate(c);
+  }
+  public DivideExpression(Expression l, Expression r) {
+    super(l, r);
+  }
+}
 
