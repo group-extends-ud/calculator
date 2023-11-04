@@ -6,6 +6,6 @@ public class TerminalExpression implements Expression {
     var = v;
   }
   public double evaluate(Context c) {
-    return (Double) var;
+    return c.getValue(var);
   }
 }

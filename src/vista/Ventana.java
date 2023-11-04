@@ -48,7 +48,7 @@ public class Ventana extends JFrame {
             {"Left", "Right",   "!",   "e", "7", "8",  "9", "DEL", "AC"},
             { "Ans",   "abs", "X^2", "Y^X", "4", "5",  "6",   "X",  "/"},
             {   "π",   "sin", "cos", "tan", "1", "2",  "3",   "+",  "%"},
-            {   "(",     ")", "nPr", "nCr", "0", ".", "//",   "-",  "="}
+            {   "(",     ")", "nPr", "nCr", "0", ".", "\\",   "-",  "="}
         };
 
         Color[][] colors = new Color[][] {
