@@ -38,7 +38,7 @@ public class ButtonHandler implements ActionListener {
             case "1,7" -> ventana.insert("*");
             case "1,8" -> ventana.insert("/"); // división
             case "2,8" -> ventana.insert("%"); // módulo
-            case "3,6" -> ventana.insert("//"); // división entera
+            case "3,6" -> ventana.insert("\\"); // división entera
             case "1,2" -> ventana.insert("^2"); // elevar al cuadrado
             case "1,3" -> ventana.insert("^("); // elevar a la x
             case "0,2" -> ventana.insert("!"); // factorial

@@ -11,12 +11,10 @@ public class Stack {
   public Object pop() {
     if (stackEntries.size() == 0) {
       return null;
-    } else {
-      Object a =
-        stackEntries.elementAt(stackEntries.size() -
-            1);
-      stackEntries.removeElementAt(stackEntries.size() -
-          1);
+    }
+    else {
+      Object a = stackEntries.elementAt(stackEntries.size() - 1);
+      stackEntries.removeElementAt(stackEntries.size() - 1);
       return a;
     }
   }

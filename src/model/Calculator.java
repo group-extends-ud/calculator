@@ -16,6 +16,9 @@ public class Calculator {
     operators.put("-", "1");
     operators.put("/", "2");
     operators.put("*", "2");
+    operators.put("\\", "2"); // división entera
+    operators.put("%", "3");
+    operators.put("^", "4");
     operators.put("(", "0");
   }
 
@@ -41,11 +44,23 @@ public class Calculator {
     if (operation.trim().equals("+")) {
       return new AddExpression(l, r);
     }
-    if (operation.trim().equals("-")) {
+    else if (operation.trim().equals("-")) {
       return new SubtractExpression(l, r);
     }
-    if (operation.trim().equals("*")) {
+    else if (operation.trim().equals("*")) {
       return new MultiplyExpression(l, r);
+    }
+    else if (operation.trim().equals("/")) {
+      return new DivideExpression(l, r);
+    }
+    else if (operation.trim().equals("\\")) {
+      return new IntDivideExpression(l, r);
+    }
+    else if (operation.trim().equals("%")) {
+      return new ModExpression(l, r);
+    }
+    else if (operation.trim().equals("^")) {
+      return new PowExpression(l, r);
     }
 
     return null;
@@ -167,7 +182,8 @@ public class Calculator {
   }
 
   private boolean isOperator(String str) {
-      return str.equals("+") || str.equals("-") || str.equals("*") || str.equals("/");
+      return str.equals("+") || str.equals("-") || str.equals("*") || str.equals("/") || str.equals("%")
+              || str.equals("^") || str.equals("\\");
   }
 
   private boolean isOperator(Object obj) {
