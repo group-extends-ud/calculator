@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 
 public class Boton extends JButton {
-    private final static ResourceService rs = ResourceService.getInstance();
+    private final static ResourceService rs = ResourceService.getService();
 
     public Boton(String text, int x, int y, Color bg) {
         super(text);

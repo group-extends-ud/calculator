@@ -1,6 +1,6 @@
 package vista;
 
-import control.Control;
+import control.AppController;
 import service.ResourceService;
 
 import java.awt.*;
@@ -8,17 +8,15 @@ import java.awt.*;
 import javax.swing.*;
 
 public class Ventana extends JFrame {
-    private static final ResourceService rs = ResourceService.getInstance();
-    private final Control control;
-    private final JTextField lExpression;
-    private final JLabel lAnswer;
-    private final ButtonHandler buttonHandler;
+    private final ResourceService rs;
+    private final AppController appController;
+    private JTextField lExpression;
+    private JLabel lAnswer;
+    private ButtonHandler buttonHandler;
 
-    public Ventana(Control c) {
-        control = c;
-        lExpression = new JTextField();
-        lAnswer = new JLabel();
-        buttonHandler = new ButtonHandler(this);
+    public Ventana(AppController c) {
+        appController = c;
+        rs = ResourceService.getService();
         
         loadTextFields();
         loadKeyboard();
@@ -26,6 +24,7 @@ public class Ventana extends JFrame {
     }
 
     private void loadTextFields() {
+        lExpression = new JTextField();
         lExpression.setBounds(32, 72, 1200, 32);
         lExpression.setForeground(Color.WHITE);
         lExpression.setBackground(null);
@@ -36,6 +35,7 @@ public class Ventana extends JFrame {
         lExpression.addActionListener(buttonHandler);
         add(lExpression);
 
+        lAnswer = new JLabel();
         lAnswer.setBounds(32, 146, 1200, 32);
         lAnswer.setForeground(Color.CYAN);
         lAnswer.setFont(rs.fText1);
@@ -52,10 +52,10 @@ public class Ventana extends JFrame {
         };
 
         Color[][] colors = new Color[][] {
-            { rs.SCY,  rs.SCY, rs.SCG3, rs.SCG3, rs.SCG1, rs.SCG1, rs.SCG1, rs.SCR, rs.SCR},
-            {rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG1, rs.SCG1, rs.SCG1, rs.SCB, rs.SCB},
-            {rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG1, rs.SCG1, rs.SCG1, rs.SCB, rs.SCB},
-            {rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG3, rs.SCG1, rs.SCG1,  rs.SCB, rs.SCB, rs.SCB}
+            { rs.SCY,  rs.SCY, rs.SCG2, rs.SCG2, rs.SCG1, rs.SCG1, rs.SCG1, rs.SCR, rs.SCR},
+            {rs.SCG2, rs.SCG2, rs.SCG2, rs.SCG2, rs.SCG1, rs.SCG1, rs.SCG1, rs.SCB, rs.SCB},
+            {rs.SCG2, rs.SCG2, rs.SCG2, rs.SCG2, rs.SCG1, rs.SCG1, rs.SCG1, rs.SCB, rs.SCB},
+            {rs.SCG2, rs.SCG2, rs.SCG2, rs.SCG2, rs.SCG1, rs.SCG1,  rs.SCB, rs.SCB, rs.SCB}
         };
 
         JPanel pKeyboard = new JPanel(null);
@@ -63,6 +63,8 @@ public class Ventana extends JFrame {
         pKeyboard.setBackground(new Color(56, 56, 56));
         pKeyboard.setBounds(2, 250, 1276, 468);
         add(pKeyboard);
+
+        buttonHandler = new ButtonHandler(this);
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 9; j++) {
@@ -118,7 +120,7 @@ public class Ventana extends JFrame {
     }
 
     public void calcular() {
-        control.calcular();
+        appController.calcular();
     }
 
     public void showAnswer(String answer) {

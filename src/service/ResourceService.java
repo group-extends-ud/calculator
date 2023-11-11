@@ -5,10 +5,7 @@ import java.awt.*;
 
 public class ResourceService {
     // Singleton
-    private static ResourceService rs = new ResourceService();
-
-    // GUIService
-    private final GraphicService gs = GraphicService.getService();
+    private final static ResourceService rs = new ResourceService();
 
     /**
      *  COLOR PALETTES
@@ -18,8 +15,7 @@ public class ResourceService {
     public final Color SCR = new Color(102, 19, 13); // Red
     public final Color SCY = new Color(168, 133, 31); // Yellow
     public final Color SCG1 = new Color(107, 107, 107); // Gray 1
-    public final Color SCG2 = new Color(56, 56, 56); // Gray 2
-    public final Color SCG3 = new Color(34, 34, 34); // Gray 3
+    public final Color SCG2 = new Color(34, 34, 34); // Gray 2
 
     /**
      * Fonts
@@ -31,10 +27,15 @@ public class ResourceService {
     /**
      * Borders
      **/
-    public final Border bordeRedondeado = gs.getRoundBorder(null, 40, false, null);
+    public final Border bordeRedondeado;
 
-    private ResourceService() {}
-    public static ResourceService getInstance() {
+    private ResourceService() {
+        // GUIService reference
+        GraphicService gs = GraphicService.getService();
+
+        bordeRedondeado = gs.getRoundBorder(null, 40, false, null);
+    }
+    public static ResourceService getService() {
         return rs;
     }
 }
