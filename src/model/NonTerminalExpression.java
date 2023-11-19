@@ -1,7 +1,6 @@
 package model;
 
-public abstract class NonTerminalExpression
-  implements Expression {
+public abstract class NonTerminalExpression implements Expression {
   private Expression leftNode;
   private Expression rightNode;
 
@@ -91,5 +90,35 @@ class IntDivideExpression extends NonTerminalExpression {
     int a = (int) getLeftNode().evaluate(c);
     int b = (int) getRightNode().evaluate(c);
     return a / b;
+  }
+}
+
+class PermutationExpression extends NonTerminalExpression {
+  @Override
+  public double evaluate(Context c) {
+    double n = getLeftNode().evaluate(c);
+    double r = getRightNode().evaluate(c);
+    if(n%1.0!=0.0 || r%1.0!=0.0 || n<r || n<1 || r<1) {
+      throw new CalculatorException("Ma error");
+    }
+    return (double) Calculator.factorial(n) / Calculator.factorial(n-r);
+  }
+  public PermutationExpression(Expression l, Expression r) {
+    super(l, r);
+  }
+}
+
+class CombinationExpression extends NonTerminalExpression {
+  @Override
+  public double evaluate(Context c) {
+    double n = getLeftNode().evaluate(c);
+    double r = getRightNode().evaluate(c);
+    if(n%1.0!=0.0 || r%1.0!=0.0 || n<r || n<1 || r<1) {
+      throw new CalculatorException("Ma error");
+    }
+    return (double) Calculator.factorial(n) / (Calculator.factorial(r) * Calculator.factorial(n-r));
+  }
+  public CombinationExpression(Expression l, Expression r) {
+    super(l, r);
   }
 }
