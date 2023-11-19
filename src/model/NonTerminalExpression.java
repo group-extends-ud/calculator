@@ -24,8 +24,7 @@ public abstract class NonTerminalExpression implements Expression {
 
 class AddExpression extends NonTerminalExpression {
   public Double evaluate(Context c) {
-    return getLeftNode().evaluate(c) +
-           getRightNode().evaluate(c);
+    return getLeftNode().evaluate(c) + getRightNode().evaluate(c);
   }
   public AddExpression(Expression l, Expression r) {
     super(l, r);
@@ -34,8 +33,7 @@ class AddExpression extends NonTerminalExpression {
 
 class SubtractExpression extends NonTerminalExpression {
   public Double evaluate(Context c) {
-    return getLeftNode().evaluate(c) -
-           getRightNode().evaluate(c);
+    return getLeftNode().evaluate(c) - getRightNode().evaluate(c);
   }
   public SubtractExpression(Expression l, Expression r) {
     super(l, r);

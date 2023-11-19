@@ -73,7 +73,7 @@ public class Calculator {
         while (!expr.isEmpty()) {
             Object currObj = expr.pop();
 
-            if (!isOperator(currObj)) {
+            if (!ctx.isOperator(currObj)) {
                 Expression e = new TerminalExpression(currObj);
                 s.push(e);
             } else {
@@ -98,12 +98,12 @@ public class Calculator {
             String currChar = expr.substring(i, i + 1);
 
             // if the current character is an operand
-            if (Context.isInt(currChar)) {
+            if (ctx.isInt(currChar)) {
                 double valor = 0.0;
                 int maxSize = 0;
                 // toma el double más largo desde esa posición
                 for (int j = i; j < expr.length() + 1; j++) {
-                    if (Context.isDouble(expr.substring(i, j))) {
+                    if (ctx.isDouble(expr.substring(i, j))) {
                         valor = Double.parseDouble(expr.substring(i, j));
                         maxSize = j - i;
                     }
@@ -111,7 +111,7 @@ public class Calculator {
                 pfExpr.push(valor);
                 i += maxSize - 1;
             }
-            else if (Context.isConstant(currChar)) {
+            else if (ctx.isConstant(currChar)) {
                 pfExpr.push(ctx.getValue(currChar));
             }
             else if (currChar.equals("(")) {
@@ -132,7 +132,7 @@ public class Calculator {
                     }
                 }
             }
-            else if (isOperator(currChar)) {
+            else if (ctx.isOperator(currChar)) {
                 // 8a
                 if (stack.isEmpty()) {
                     stack.push(currChar);
@@ -144,7 +144,7 @@ public class Calculator {
                 // 8b
                 else {
                     // 8bi
-                    if (isOperator(currChar)) {
+                    if (ctx.isOperator(currChar)) {
                         if (!stack.isEmpty()) {
                             tempStr = (String) stack.pop();
 
@@ -184,19 +184,6 @@ public class Calculator {
             postFix.push(pfExpr.pop());
         }
         return postFix;
-    }
-
-    private boolean isOperator(String str) {
-        return str.equals("+") || str.equals("-") || str.equals("*") || str.equals("/") || str.equals("%")
-                || str.equals("^") || str.equals("\\") || str.equals("P") || str.equals("C");
-    }
-
-    private boolean isOperator(Object obj) {
-        try {
-            return isOperator((String) obj);
-        } catch (Exception e) {
-            return false;
-        }
     }
 
 }

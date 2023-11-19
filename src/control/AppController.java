@@ -1,7 +1,6 @@
 package control;
 
 import model.Calculator;
-import model.CalculatorException;
 import model.Context;
 import vista.Ventana;
 

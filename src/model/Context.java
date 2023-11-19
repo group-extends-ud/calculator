@@ -25,9 +25,9 @@ public class Context {
         }
     }
 
-    public static Boolean isInt(String string) {
+    public boolean isInt(String str) {
         try {
-            Integer.parseInt(string);
+            Integer.parseInt(str);
             return true;
         }
         catch (NumberFormatException numberFormat){
@@ -35,7 +35,7 @@ public class Context {
         }
     }
 
-    public static boolean isDouble(String str) {
+    public boolean isDouble(String str) {
         try {
             Double.parseDouble(str);
             return true;
@@ -45,7 +45,7 @@ public class Context {
         }
     }
 
-    public static boolean isDouble(Object obj) {
+    public boolean isDouble(Object obj) {
         try {
             Double d = (Double) obj;
             return true;
@@ -55,7 +55,21 @@ public class Context {
         }
     }
 
-    public static boolean isConstant(String symbol) {
-        return symbol.equals("π") || symbol.equals("e") || symbol.equals("τ");
+    public boolean isOperator(String str) {
+        return str.equals("+") || str.equals("-") || str.equals("*") || str.equals("/") || str.equals("%")
+                || str.equals("^") || str.equals("\\") || str.equals("P") || str.equals("C");
     }
+
+    public boolean isOperator(Object obj) {
+        try {
+            return isOperator((String) obj);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isConstant(String str) {
+        return str.equals("π") || str.equals("e") || str.equals("τ");
+    }
+
 }
