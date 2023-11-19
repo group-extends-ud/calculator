@@ -37,7 +37,7 @@ public class Calculator {
         expression = expr;
     }
 
-    public double evaluate() {
+    public Double evaluate() {
         // infix to Postfix
         Stack pfExpr = infixToPostFix(expression);
 
@@ -45,6 +45,9 @@ public class Calculator {
         Expression rootNode = buildTree(pfExpr);
 
         // Evaluate the tree
+        if(rootNode == null) {
+            return null;
+        }
         return rootNode.evaluate(ctx);
     }
 
