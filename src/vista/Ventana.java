@@ -121,7 +121,7 @@ public class Ventana extends JFrame {
     }
 
     public void calcular() {
-        appController.calcular();
+        appController.calcular(tfExpression.getText());
     }
 
     public void showAnswer(String answer) {

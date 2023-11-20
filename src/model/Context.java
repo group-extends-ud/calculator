@@ -47,7 +47,7 @@ public class Context {
 
     public boolean isDouble(Object obj) {
         try {
-            Double d = (Double) obj;
+            double d = (double) obj;
             return true;
         }
         catch (Exception e) {
