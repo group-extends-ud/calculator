@@ -8,12 +8,15 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.border.Border;
 
 public class GraphicService {
-    private final static GraphicService instance = new GraphicService();
+    private static GraphicService gs;
 
     private GraphicService() {}
 
     public static GraphicService getService() {
-        return instance;
+        if(gs == null) {
+            gs = new GraphicService();
+        }
+        return gs;
     }
     
     public Border getRoundBorder(Color color, int radio, boolean esLineal, Image imagen) {

@@ -5,7 +5,7 @@ public class TerminalExpression implements Expression {
   public TerminalExpression(Object v) {
     var = v;
   }
-  public double evaluate(Context c) {
+  public Double evaluate(Context c) {
     return c.getValue(var);
   }
 }

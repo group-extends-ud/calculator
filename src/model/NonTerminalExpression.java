@@ -1,7 +1,6 @@
 package model;
 
-public abstract class NonTerminalExpression
-  implements Expression {
+public abstract class NonTerminalExpression implements Expression {
   private Expression leftNode;
   private Expression rightNode;
 
@@ -24,9 +23,8 @@ public abstract class NonTerminalExpression
 }// model.NonTerminalExpression
 
 class AddExpression extends NonTerminalExpression {
-  public double evaluate(Context c) {
-    return getLeftNode().evaluate(c) +
-           getRightNode().evaluate(c);
+  public Double evaluate(Context c) {
+    return getLeftNode().evaluate(c) + getRightNode().evaluate(c);
   }
   public AddExpression(Expression l, Expression r) {
     super(l, r);
@@ -34,9 +32,8 @@ class AddExpression extends NonTerminalExpression {
 }// model.AddExpression
 
 class SubtractExpression extends NonTerminalExpression {
-  public double evaluate(Context c) {
-    return getLeftNode().evaluate(c) -
-           getRightNode().evaluate(c);
+  public Double evaluate(Context c) {
+    return getLeftNode().evaluate(c) - getRightNode().evaluate(c);
   }
   public SubtractExpression(Expression l, Expression r) {
     super(l, r);
@@ -44,7 +41,7 @@ class SubtractExpression extends NonTerminalExpression {
 }// model.SubtractExpression
 
 class MultiplyExpression extends NonTerminalExpression {
-  public double evaluate(Context c) {
+  public Double evaluate(Context c) {
     return getLeftNode().evaluate(c) * getRightNode().evaluate(c);
   }
   public MultiplyExpression(Expression l, Expression r) {
@@ -54,7 +51,7 @@ class MultiplyExpression extends NonTerminalExpression {
 }// model.MultiplyExpression
 
 class DivideExpression extends NonTerminalExpression {
-  public double evaluate(Context c) {
+  public Double evaluate(Context c) {
     return getLeftNode().evaluate(c) / getRightNode().evaluate(c);
   }
   public DivideExpression(Expression l, Expression r) {
@@ -67,7 +64,7 @@ class ModExpression extends NonTerminalExpression {
     super(l, r);
   }
   @Override
-  public double evaluate(Context c) {
+  public Double evaluate(Context c) {
     return getLeftNode().evaluate(c) % getRightNode().evaluate(c);
   }
 }
@@ -77,7 +74,7 @@ class PowExpression extends NonTerminalExpression {
     super(l, r);
   }
   @Override
-  public double evaluate(Context c) {
+  public Double evaluate(Context c) {
     return Math.pow(getLeftNode().evaluate(c), getRightNode().evaluate(c));
   }
 }
@@ -87,9 +84,41 @@ class IntDivideExpression extends NonTerminalExpression {
     super(l, r);
   }
   @Override
-  public double evaluate(Context c) {
-    int a = (int) getLeftNode().evaluate(c);
-    int b = (int) getRightNode().evaluate(c);
-    return a / b;
+  public Double evaluate(Context c) {
+    int a = getLeftNode().evaluate(c).intValue();
+    int b = getRightNode().evaluate(c).intValue();
+    return (double) (a / b);
+  }
+}
+
+class PermutationExpression extends NonTerminalExpression {
+  @Override
+  public Double evaluate(Context c) {
+    double n = getLeftNode().evaluate(c);
+    double r = getRightNode().evaluate(c);
+    if(n%1.0!=0.0 || r%1.0!=0.0 || n<r || n<1 || r<1) {
+        return null;
+    }
+    else {
+      return (double) Calculator.factorial(n) / Calculator.factorial(n - r);
+    }
+  }
+  public PermutationExpression(Expression l, Expression r) {
+    super(l, r);
+  }
+}
+
+class CombinationExpression extends NonTerminalExpression {
+  @Override
+  public Double evaluate(Context c) {
+    double n = getLeftNode().evaluate(c);
+    double r = getRightNode().evaluate(c);
+    if(n%1.0!=0.0 || r%1.0!=0.0 || n<r || n<1 || r<1) {
+      return null;
+    }
+    return (double) Calculator.factorial(n) / (Calculator.factorial(r) * Calculator.factorial(n-r));
+  }
+  public CombinationExpression(Expression l, Expression r) {
+    super(l, r);
   }
 }

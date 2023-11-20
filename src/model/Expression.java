@@ -1,5 +1,5 @@
 package model;
 
 public interface Expression {
-  double evaluate(Context c);
+  Double evaluate(Context c);
 }
