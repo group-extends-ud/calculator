@@ -9,7 +9,7 @@ public class Stack {
     stackEntries.addElement(a);
   }
   public Object pop() {
-    if (stackEntries.size() == 0) {
+    if (stackEntries.isEmpty()) {
       return null;
     }
     else {
