@@ -120,6 +120,7 @@ public class Calculator {
                     element = stack.pop();
                     if (element != null) {
                         if (element.equals("(")) {
+
                             break;
                         } else {
                             pfExpr.push(element);
@@ -140,8 +141,6 @@ public class Calculator {
                 // 8b
                 else {
                     // 8bi
-
-
                     tempStr = (String) stack.pop();
 
                     // 8biA
