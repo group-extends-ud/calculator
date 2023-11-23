@@ -45,7 +45,7 @@ public class Calculator {
         Expression rootNode = buildTree(pfExpr);
 
         // Evaluate the tree
-        if(rootNode == null) {
+        if (rootNode == null) {
             return null;
         }
         return rootNode.evaluate(ctx);
@@ -110,19 +110,17 @@ public class Calculator {
                 }
                 pfExpr.push(valor);
                 i += maxSize - 1;
-            }
-            else if (ctx.isConstant(currChar)) {
+            } else if (ctx.isConstant(currChar)) {
                 pfExpr.push(ctx.getValue(currChar));
-            }
-            else if (currChar.equals("(")) {
+            } else if (currChar.equals("(")) {
                 stack.push(currChar);
-            }
-            else if (currChar.equals(")")) {
+            } else if (currChar.equals(")")) {
                 Object element;
                 while (true) {
                     element = stack.pop();
                     if (element != null) {
                         if (element.equals("(")) {
+
                             break;
                         } else {
                             pfExpr.push(element);
@@ -131,46 +129,43 @@ public class Calculator {
                         break;
                     }
                 }
-            }
-            else if (ctx.isOperator(currChar)) {
+            } else if (ctx.isOperator(currChar)) {
                 // 8a
                 if (stack.isEmpty()) {
                     stack.push(currChar);
                     // Por si el número inicial es negativo
-                    if(currChar.equals("-") && i==0) {
+                    if (currChar.equals("-") && i == 0) {
                         pfExpr.push(0.0);
                     }
                 }
                 // 8b
                 else {
                     // 8bi
-                    if (ctx.isOperator(currChar)) {
+                    tempStr = (String) stack.pop();
+
+                    // 8biA
+                    String strVal1 = operators.get(tempStr);
+                    int val1 = Integer.parseInt(strVal1);
+
+                    String strVal2 = operators.get(currChar);
+                    int val2 = Integer.parseInt(strVal2);
+
+                    // 8biB
+                    while (val1 >= val2) {
+                        pfExpr.push(tempStr);
+                        val1 = -100;
                         if (!stack.isEmpty()) {
                             tempStr = (String) stack.pop();
-
-                            // 8biA
-                            String strVal1 = operators.get(tempStr);
-                            int val1 = Integer.parseInt(strVal1);
-
-                            String strVal2 = operators.get(currChar);
-                            int val2 = Integer.parseInt(strVal2);
-
-                            // 8biB
-                            while (val1 >= val2) {
-                                pfExpr.push(tempStr);
-                                val1 = -100;
-                                if (!stack.isEmpty()) {
-                                    tempStr = (String) stack.pop();
-                                    strVal1 = operators.get(tempStr);
-                                    val1 = Integer.parseInt(strVal1);
-                                }
-                            }
-                            if (val1 != -100) {
-                                stack.push(tempStr);
-                            }
+                            strVal1 = operators.get(tempStr);
+                            val1 = Integer.parseInt(strVal1);
                         }
-                        stack.push(currChar);
                     }
+                    if (val1 != -100) {
+                        stack.push(tempStr);
+                    }
+
+                    stack.push(currChar);
+
                 }
             }
         }

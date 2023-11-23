@@ -75,7 +75,7 @@ class PowExpression extends NonTerminalExpression {
   }
   @Override
   public Double evaluate(Context c) {
-    return Math.pow(getLeftNode().evaluate(c), getRightNode().evaluate(c));
+      return Math.pow(getLeftNode().evaluate(c), getRightNode().evaluate(c));
   }
 }
 

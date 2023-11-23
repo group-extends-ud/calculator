@@ -31,7 +31,7 @@ public class Ventana extends JFrame {
         tfExpression.setCaretColor(Color.WHITE);
         tfExpression.setBorder(null);
         tfExpression.setFont(rs.fText1);
-        tfExpression.setActionCommand("3,8");
+        tfExpression.setActionCommand("3,7");
         tfExpression.addActionListener(buttonHandler);
         add(tfExpression);
 
@@ -121,7 +121,7 @@ public class Ventana extends JFrame {
     }
 
     public void calcular() {
-        appController.calcular();
+        appController.calcular(tfExpression.getText());
     }
 
     public void showAnswer(String answer) {

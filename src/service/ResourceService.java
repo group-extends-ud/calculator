@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class ResourceService {
     // Singleton
-    private final static ResourceService rs = new ResourceService();
+    private static ResourceService rs;
 
     /**
      *  COLOR PALETTES
@@ -36,6 +36,10 @@ public class ResourceService {
         bordeRedondeado = gs.getRoundBorder(null, 40, false, null);
     }
     public static ResourceService getService() {
+        if(rs == null){
+            rs = new ResourceService();
+        }
         return rs;
+
     }
 }

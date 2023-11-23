@@ -17,14 +17,13 @@ public class AppController {
         ventana = new Ventana(this);
     }
 
-    public void calcular() {
-        String expression = ventana.getExpression();
-        if(expression.isEmpty()) {
+    public void calcular(String expr) {
+        if(expr.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor ingrese una expresión",
                     "Expresión vacía", JOptionPane.ERROR_MESSAGE);
         }
         else {
-            calc.setExpression(expression); // set the expression to evaluate
+            calc.setExpression(expr); // set the expression to evaluate
             calc.setContext(ctx); // configure the calculator with the model.Context
             try {
                 String answer = String.valueOf(calc.evaluate());

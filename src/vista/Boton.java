@@ -11,7 +11,7 @@ import javax.swing.JButton;
 public class Boton extends JButton {
     public Boton(String text, int x, int y, Color bg) {
         super(text);
-        ResourceService rs = ResourceService.getService()
+        ResourceService rs = ResourceService.getService();
         
         setBounds(x, y, 110, 80);
         setFont(rs.fText);
